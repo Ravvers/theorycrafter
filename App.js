@@ -6,8 +6,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoadingScreen from './src/screens/LoadingScreen/Loading';
+import MainScreen from './src/screens/MainScreen/Main';
 import ChampionSelectScreen from './src/screens/ChampionSelectScreen/ChampionSelect';
-import WelcomeScreen from './src/screens/WelcomeScreen/Welcome';
+import ItemSelectScreen from './src/screens/ItemSelectScreen/ItemSelect';
+import StatsScreen from './src/screens/StatsScreen/Stats';
+
 
 const RootStack = createStackNavigator();
 
@@ -20,8 +23,10 @@ export default function App() {
         }}
       >
         <RootStack.Screen name='Loading' component={LoadingScreen} />
-        <RootStack.Screen name='Welcome' component={WelcomeScreen} />
+        <RootStack.Screen name='Main' component={MainScreen} />
         <RootStack.Screen name='ChampionSelect' component={ChampionSelectScreen} />
+        <RootStack.Screen name='ItemSelect' component={ItemSelectScreen} />
+        <RootStack.Screen name='Stats' component={StatsScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
