@@ -1,11 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Video } from 'expo-av';
 import IntroVideo from '../../videos/intro.mp4';
 
 const LoadingScreen = ({ navigation }) => {
     return (
-        <View>
+        <View style={styles.container}>
             <Video
                 source={IntroVideo}
                 rate={1.0}

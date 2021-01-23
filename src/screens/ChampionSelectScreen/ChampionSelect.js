@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const WelcomeScreen = ({ navigation }) => {
+
+const ChampionSelectScreen = ({ navigation }) => {
     return(
         <View style={styles.container}>
             <Text>
-                Welcome to the league of legends theorycrafter!
-                Click here to start
+                Champion Select Screen
             </Text>
         </View>
     );
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default ChampionSelectScreen;
