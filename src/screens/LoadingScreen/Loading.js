@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { Video } from 'expo-av';
 import IntroVideo from '../../videos/intro.mp4';
 
@@ -15,11 +16,12 @@ const LoadingScreen = ({ navigation }) => {
                 shouldPlay
                 onPlaybackStatusUpdate= {(playbackStatus) => {
                     if(playbackStatus.didJustFinish) {
-                        navigation.navigate('Welcome');
+                        navigation.navigate('Main');
                     }
                 }}
                 style={{ width: 500, height: 500 }}
             />
+            <StatusBar style="light" />
         </View>
     );
 };
