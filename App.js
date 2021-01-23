@@ -1,6 +1,5 @@
-// import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -22,7 +21,7 @@ export default function App() {
           headerShown: false
         }}
       >
-        <RootStack.Screen name='Loading' component={LoadingScreen} />
+        {/* <RootStack.Screen name='Loading' component={LoadingScreen} /> */}
         <RootStack.Screen name='Main' component={MainScreen} />
         <RootStack.Screen name='ChampionSelect' component={ChampionSelectScreen} />
         <RootStack.Screen name='ItemSelect' component={ItemSelectScreen} />
