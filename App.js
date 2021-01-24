@@ -10,7 +10,6 @@ import ChampionSelectScreen from './src/screens/ChampionSelectScreen/ChampionSel
 import ItemSelectScreen from './src/screens/ItemSelectScreen/ItemSelect';
 import StatsScreen from './src/screens/StatsScreen/Stats';
 
-
 const RootStack = createStackNavigator();
 
 export default function App() {
@@ -21,7 +20,7 @@ export default function App() {
           headerShown: false
         }}
       >
-        {/* <RootStack.Screen name='Loading' component={LoadingScreen} /> */}
+        <RootStack.Screen name='Loading' component={LoadingScreen} />
         <RootStack.Screen name='Main' component={MainScreen} />
         <RootStack.Screen name='ChampionSelect' component={ChampionSelectScreen} />
         <RootStack.Screen name='ItemSelect' component={ItemSelectScreen} />
