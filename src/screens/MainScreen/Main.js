@@ -2,7 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import RandomChampion from '../../img/random-champion.png';
-import AD from '../../img/ad.png';
+import AttackDamageImg from '../../img/ad.png';
+import AbilityPowerImg from '../../img/ap.png';
+import ArmorImg from '../../img/armor.png';
+import MagicResistImg from '../../img/mr.png';
+import AttackSpeedImg from '../../img/as.png';
+import AbilityHasteImg from '../../img/cd.png';
+import CritImg from '../../img/crit.png';
+import MoveSpeedImg from '../../img/ms.png';
 
 const MainScreen = ({ navigation }) => {
     return(
@@ -40,56 +47,56 @@ const MainScreen = ({ navigation }) => {
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={AD}
+                  source={AttackDamageImg}
                   style={styles.statImage}
                 />
                 <Text>AD</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={AbilityPowerImg}
                   style={styles.statImage}
                 />
                 <Text>AP</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={ArmorImg}
                   style={styles.statImage}
                 />
                 <Text>Armor</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={MagicResistImg}
                   style={styles.statImage}
                 />
                 <Text>MR</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={AttackSpeedImg}
                   style={styles.statImage}
                 />
                 <Text>AS</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={AbilityHasteImg}
                   style={styles.statImage}
                 />
                 <Text>AH</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={CritImg}
                   style={styles.statImage}
                 />
                 <Text>Crit</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={MoveSpeedImg}
                   style={styles.statImage}
                 />
                 <Text>MS</Text>
@@ -131,6 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
+    backgroundColor: 'grey',
   },
   statContainer: {
     flexDirection: 'row',
