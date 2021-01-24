@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import RandomChampion from '../../img/random-champion.png';
+import AD from '../../img/ad.png';
 
 const MainScreen = ({ navigation }) => {
     return(
@@ -10,10 +11,12 @@ const MainScreen = ({ navigation }) => {
           <View style={styles.topSection}>
 
             <View style={styles.championSection}>
-              <Image
-              source={RandomChampion}
-              style={{width: 200, height: 200, borderRadius: 200/2}}
-              />
+              <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect')}>
+                <Image
+                  source={RandomChampion}
+                  style={{width: 200, height: 200, borderRadius: 200/2}}
+                />
+              </TouchableHighlight>
 
               <Text>
                 Champion Name
@@ -37,7 +40,7 @@ const MainScreen = ({ navigation }) => {
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={AD}
                   style={styles.statImage}
                 />
                 <Text>AD</Text>
@@ -75,7 +78,7 @@ const MainScreen = ({ navigation }) => {
                   source={RandomChampion}
                   style={styles.statImage}
                 />
-                <Text>MS</Text>
+                <Text>AH</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
@@ -89,7 +92,7 @@ const MainScreen = ({ navigation }) => {
                   source={RandomChampion}
                   style={styles.statImage}
                 />
-                <Text>Range</Text>
+                <Text>MS</Text>
               </View>
             </View>
           </View>
