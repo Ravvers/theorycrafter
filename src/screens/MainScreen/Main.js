@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import RandomChampion from '../../img/random-champion.png';
+import HealthImg from '../../img/hp.png';
+import ManaImg from '../../img/mp.png';
+import EnergyImg from '../../img/energy.png';
 import AttackDamageImg from '../../img/ad.png';
 import AbilityPowerImg from '../../img/ap.png';
 import ArmorImg from '../../img/armor.png';
@@ -33,14 +36,14 @@ const MainScreen = ({ navigation }) => {
             <View style={styles.statsSection}>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={HealthImg}
                   style={styles.statImage}
                 />
                 <Text>HP</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
-                  source={RandomChampion}
+                  source={ManaImg}
                   style={styles.statImage}
                 />
                 <Text>MP</Text>
