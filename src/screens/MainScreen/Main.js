@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import RandomChampion from '../../img/random-champion.png';
@@ -14,23 +14,111 @@ import AbilityHasteImg from '../../img/cd.png';
 import CritImg from '../../img/crit.png';
 import MoveSpeedImg from '../../img/ms.png';
 
-const MainScreen = ({ navigation }) => {
+const MainScreen = ({ route, navigation }) => {
+
+  var champs = []
+  const updateChampsList = () => {
+    if (route.params != undefined) {
+      champs = route.params.champs
+    }
+  }
+
+  updateChampsList();
+
+  const championName = () => {
+    if (route.params != undefined) {
+    return(
+      <Text>
+        {route.params.selectedChampion}
+      </Text>
+    )
+    }
+    else {
+      return(
+      <Text>
+        Choose a champion!
+      </Text>
+      )
+    }
+
+  }
+
+  const getChampionIcon = () => {
+    if(route.params != undefined) {
+      return(
+        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => navigation.navigate('ChampionSelect', {champs: champs})}>
+                <Image
+                  source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
+                  style={{width: 170, height: 170, borderRadius: 200/2}}
+                />
+              </TouchableHighlight>
+      )
+    }
+    else {
+      return(
+        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {champs: champs})}>
+                <Image
+                  source={RandomChampion}
+                  style={{width: 200, height: 200, borderRadius: 200/2}}
+                />
+              </TouchableHighlight>
+      )
+    }
+  }
+
+  const getChampionStats = () => {
+    return fetch('http://ddragon.leagueoflegends.com/cdn/11.2.1/data/en_AU/champion/' + route.params.selectedChampion +'.json')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const championStatsAPI = (responseJson['data'][route.params.selectedChampion]["stats"])
+          setChampionStats({
+            HP: championStatsAPI["hp"],
+            MP: championStatsAPI["mp"],
+            AD: championStatsAPI["attackdamage"],
+            AP: 0,
+            Armor: championStatsAPI["armor"],
+            MR: championStatsAPI["spellblock"],
+            AS: championStatsAPI["attackspeed"],
+            AH: 0,
+            Crit: championStatsAPI["crit"],
+            MS: championStatsAPI["movespeed"]}
+        )})
+        .catch((error) => {
+          console.error(error);
+        });
+  }
+
+  const updateChampionStats = () => {
+    if(route.params != undefined) {
+      getChampionStats()
+
+    }
+  }
+
+  const [championStats, setChampionStats] = useState({
+    HP: 'HP',
+    MP: 'MP',
+    AD: 'AD',
+    AP: 'AP',
+    Armor: 'Armor',
+    MR: 'MR',
+    AS: 'AS',
+    AH: 'AH',
+    Crit: 'Crit',
+    MS: 'MS'
+  })
+  updateChampionStats();
+
+
     return(
         <View style={styles.container}>
 
           <View style={styles.topSection}>
 
             <View style={styles.championSection}>
-              <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect')}>
-                <Image
-                  source={RandomChampion}
-                  style={{width: 200, height: 200, borderRadius: 200/2}}
-                />
-              </TouchableHighlight>
 
-              <Text>
-                Champion Name
-              </Text>
+              {getChampionIcon()}
+              {championName()}
             </View>
 
             <View style={styles.statsSection}>
@@ -39,70 +127,70 @@ const MainScreen = ({ navigation }) => {
                   source={HealthImg}
                   style={styles.statImage}
                 />
-                <Text>HP</Text>
+                <Text>{championStats.HP}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={ManaImg}
                   style={styles.statImage}
                 />
-                <Text>MP</Text>
+                <Text>{championStats.MP}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AttackDamageImg}
                   style={styles.statImage}
                 />
-                <Text>AD</Text>
+                <Text>{championStats.AD}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AbilityPowerImg}
                   style={styles.statImage}
                 />
-                <Text>AP</Text>
+                <Text>{championStats.AP}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={ArmorImg}
                   style={styles.statImage}
                 />
-                <Text>Armor</Text>
+                <Text>{championStats.Armor}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={MagicResistImg}
                   style={styles.statImage}
                 />
-                <Text>MR</Text>
+                <Text>{championStats.MR}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AttackSpeedImg}
                   style={styles.statImage}
                 />
-                <Text>AS</Text>
+                <Text>{championStats.AS}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AbilityHasteImg}
                   style={styles.statImage}
                 />
-                <Text>AH</Text>
+                <Text>{championStats.AH}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={CritImg}
                   style={styles.statImage}
                 />
-                <Text>Crit</Text>
+                <Text>{championStats.Crit}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={MoveSpeedImg}
                   style={styles.statImage}
                 />
-                <Text>MS</Text>
+                <Text>{championStats.MS}</Text>
               </View>
             </View>
           </View>

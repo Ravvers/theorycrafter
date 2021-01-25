@@ -20,7 +20,7 @@ export default function App() {
           headerShown: false
         }}
       >
-        <RootStack.Screen name='Loading' component={LoadingScreen} />
+        {/* <RootStack.Screen name='Loading' component={LoadingScreen} /> */}
         <RootStack.Screen name='Main' component={MainScreen} />
         <RootStack.Screen name='ChampionSelect' component={ChampionSelectScreen} />
         <RootStack.Screen name='ItemSelect' component={ItemSelectScreen} />
