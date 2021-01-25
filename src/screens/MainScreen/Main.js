@@ -196,6 +196,36 @@ const MainScreen = ({ route, navigation }) => {
           </View>
 
           <View style={styles.bottomSection}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect')}>
+              <View style={styles.itemHolder}>
+              
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <View style={styles.itemHolder}>
+              
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <View style={styles.itemHolder}>
+              
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <View style={styles.itemHolder}>
+              
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <View style={styles.itemHolder}>
+              
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <View style={styles.itemHolder}>
+              
+              </View>
+            </TouchableHighlight>
 
           </View>
           
@@ -208,16 +238,17 @@ const MainScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   borderWidth: 4,
-  //   borderColor: 'red'
-  // },
-  topSection: {
-    flexDirection: 'row',
+  container: {
     marginTop: 25,
     marginHorizontal: 10,
+    marginBottom: 20
+  },
+  topSection: {
+    flexDirection: 'row',
   },
   bottomSection: {
+    borderColor: 'blue',
+    borderWidth: 4
 
   },
   championSection: {
@@ -240,10 +271,13 @@ const styles = StyleSheet.create({
   statImage: {
     width: 40,
     height: 40
+  },
+  itemHolder: {
+    borderColor: 'red',
+    borderWidth: 4,
+    height: 72,
+    marginVertical: 10
   }
-  // itemsSection: {
-
-  // }
 });
 
 export default MainScreen;
