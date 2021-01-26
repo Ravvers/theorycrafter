@@ -225,6 +225,7 @@ const ItemSelectScreen = ({ route, navigation }) => {
                 style = {styles.item}
                 key = {key}
                 />
+                <Text>{items[key]['name']}</Text>
                 </TouchableOpacity>
               </View>
             );

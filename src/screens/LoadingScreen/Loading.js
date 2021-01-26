@@ -6,16 +6,8 @@ import IntroVideo from '../../videos/intro.mp4';
 
 const LoadingScreen = ({ navigation }) => {
 
-    const [items, setItems] = useState(() => {
-        return {}
-    })
-
-    const [champions, setChampions] = useState(() => {
-        return {}
-    })
-
-    var championNames = {};
-    var itemIds = {};
+    var items = {};
+    var champions = {};
 
     function getChampionsFromAPI() {
       return fetch('http://ddragon.leagueoflegends.com/cdn/11.2.1/data/en_AU/champion.json')
@@ -23,23 +15,20 @@ const LoadingScreen = ({ navigation }) => {
           .then((responseJson) => {
             addChampionsToState(responseJson)
           })
-          .then(championNames = Object.keys(champions))
           .catch((error) => {
             console.error(error);
           });
     }
 
     function addChampionsToState(responseJson) {
-      var tempList = {};
         for (const key in responseJson["data"]) {
-          tempList[key] = {
+          champions[key] = {
               stats: responseJson["data"][key]["stats"]
           };
         }
-        setChampions(champions => tempList)
     }
 
-    // getChampionsFromAPI();
+    getChampionsFromAPI();
 
     function getItemsFromAPI() {
     return fetch('http://ddragon.leagueoflegends.com/cdn/11.2.1/data/en_US/item.json')
@@ -47,21 +36,18 @@ const LoadingScreen = ({ navigation }) => {
         .then((responseJson) => {
           addItemsToState(responseJson)
         })
-        .then(itemIds = Object.keys(items))
         .catch((error) => {
           console.error(error);
         })
     }
 
     function addItemsToState(responseJson) {
-      var tempList = {};
         for (const key in responseJson["data"]) {
-          tempList[key] = {
+          items[key] = {
               name: responseJson["data"][key]["name"],
               stats: responseJson["data"][key]["stats"]
           };
         }
-      setItems(items => tempList)
     }
 
     getItemsFromAPI();
@@ -80,7 +66,6 @@ const LoadingScreen = ({ navigation }) => {
                         navigation.navigate('Main', {
                             champions: champions,
                             items: items,
-                            // championNames: championNames
                         } );
                     }
                 }}

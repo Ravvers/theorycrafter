@@ -66,7 +66,7 @@ const MainScreen = ({ route, navigation }) => {
   const getChampionIcon = () => {
     if(route.params != undefined && 'selectedChampion' in route.params) {
       return(
-        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => navigation.navigate('ChampionSelect', {championNames: route.params.championNames})}>
+        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => navigation.navigate('ChampionSelect', {champions: route.params.champions})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
                   style={{width: 170, height: 170, borderRadius: 170/2}}
@@ -76,7 +76,7 @@ const MainScreen = ({ route, navigation }) => {
     }
     else {
       return(
-        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {championNames: route.params.championNames})}>
+        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {champions: route.params.champions})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/29.png'}}
                   style={{width: 170, height: 170, borderRadius: 170/2}}
@@ -221,7 +221,7 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2'})}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2', items: route.params.items})}>
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item2'] +'.png'}}
@@ -230,7 +230,7 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3'})}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3', items: route.params.items})}>
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item3'] +'.png'}}
@@ -239,7 +239,7 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4'})}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4', items: route.params.items})}>
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item4'] +'.png'}}
@@ -248,7 +248,7 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5'})}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5', items: route.params.items})}>
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item5'] +'.png'}}
@@ -257,7 +257,7 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6'})}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6', items: route.params.items})}>
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item6'] +'.png'}}
