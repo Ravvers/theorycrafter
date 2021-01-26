@@ -15,6 +15,36 @@ import MoveSpeedImg from '../../img/ms.png';
 
 const MainScreen = ({ route, navigation }) => {
 
+  const [champion, setChampion] = useState(() => {
+    return 'Select a champion!'
+  })
+
+  const [championStats, setChampionStats] = useState(() => { 
+    return {
+      HP: 'HP',
+      MP: 'MP',
+      AD: 'AD',
+      AP: 'AP',
+      Armor: 'Armor',
+      MR: 'MR',
+      AS: 'AS',
+      AH: 'AH',
+      Crit: 'Crit',
+      MS: 'MS'
+    }
+  })
+
+  const [selectedItems, setSelectedItems] = useState(() => {
+    return {
+      item1: '1001',
+      item2: '1001',
+      item3: '1001',
+      item4: '1001',
+      item5: '1001',
+      item6: '1001'
+    }
+  })
+
   const getChampionName = () => {
     if (route.params != undefined && 'selectedChampion' in route.params) {
     return(
@@ -36,7 +66,7 @@ const MainScreen = ({ route, navigation }) => {
   const getChampionIcon = () => {
     if(route.params != undefined && 'selectedChampion' in route.params) {
       return(
-        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => navigation.navigate('ChampionSelect')}>
+        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => navigation.navigate('ChampionSelect', {championNames: route.params.championNames})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
                   style={{width: 170, height: 170, borderRadius: 170/2}}
@@ -46,7 +76,7 @@ const MainScreen = ({ route, navigation }) => {
     }
     else {
       return(
-        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect')}>
+        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {championNames: route.params.championNames})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/29.png'}}
                   style={{width: 170, height: 170, borderRadius: 170/2}}
@@ -85,28 +115,9 @@ const MainScreen = ({ route, navigation }) => {
     }
   }
 
-  const [championStats, setChampionStats] = useState({
-    HP: 'HP',
-    MP: 'MP',
-    AD: 'AD',
-    AP: 'AP',
-    Armor: 'Armor',
-    MR: 'MR',
-    AS: 'AS',
-    AH: 'AH',
-    Crit: 'Crit',
-    MS: 'MS'
-  })
   updateChampionStats();
 
-  const [selectedItems, setSelectedItems] = useState({
-    item1: '1001',
-    item2: '1001',
-    item3: '1001',
-    item4: '1001',
-    item5: '1001',
-    item6: '1001'
-  })
+  
   
   const updateSelectedItems = () => {
     if(route.params != undefined && 'selectedItem' in route.params){
@@ -201,7 +212,7 @@ const MainScreen = ({ route, navigation }) => {
           </View>
 
           <View style={styles.bottomSection}>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1'})}>
+            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items})}>
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item1'] +'.png'}}
