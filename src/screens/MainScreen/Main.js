@@ -15,6 +15,9 @@ import MoveSpeedImg from '../../img/ms.png';
 
 const MainScreen = ({ route, navigation }) => {
 
+  const items = route.params.items;
+  const champions = route.params.champions;
+
   const [champion, setChampion] = useState(() => {
     return 'Select a champion!'
   })
@@ -48,14 +51,14 @@ const MainScreen = ({ route, navigation }) => {
   const getChampionName = () => {
     if (route.params != undefined && 'selectedChampion' in route.params) {
     return(
-      <Text>
+      <Text style={styles.championName}>
         {route.params.selectedChampion}
       </Text>
     )
     }
     else {
       return(
-      <Text>
+      <Text style={styles.championName}>
         Choose a champion!
       </Text>
       )
@@ -216,8 +219,11 @@ const MainScreen = ({ route, navigation }) => {
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item1'] +'.png'}}
-                style={{height: 64, width: 64}}
+                style={styles.itemImage}
                 />
+                <View style={styles.itemName}>
+                  <Text style={styles.itemNameText}>{items[selectedItems['item1']]["name"]}</Text>
+                </View>
               
               </View>
             </TouchableHighlight>
@@ -225,8 +231,11 @@ const MainScreen = ({ route, navigation }) => {
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item2'] +'.png'}}
-                style={{height: 64, width: 64}}
+                style={styles.itemImage}
                 />
+                <View style={styles.itemName}>
+                  <Text style={styles.itemNameText}>{items[selectedItems['item2']]["name"]}</Text>
+                </View>
               
               </View>
             </TouchableHighlight>
@@ -234,8 +243,11 @@ const MainScreen = ({ route, navigation }) => {
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item3'] +'.png'}}
-                style={{height: 64, width: 64}}
+                style={styles.itemImage}
                 />
+                <View style={styles.itemName}>
+                  <Text style={styles.itemNameText}>{items[selectedItems['item3']]["name"]}</Text>
+                </View>
               
               </View>
             </TouchableHighlight>
@@ -243,8 +255,11 @@ const MainScreen = ({ route, navigation }) => {
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item4'] +'.png'}}
-                style={{height: 64, width: 64}}
+                style={styles.itemImage}
                 />
+                <View style={styles.itemName}>
+                  <Text style={styles.itemNameText}>{items[selectedItems['item4']]["name"]}</Text>
+                </View>
               
               </View>
             </TouchableHighlight>
@@ -252,8 +267,11 @@ const MainScreen = ({ route, navigation }) => {
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item5'] +'.png'}}
-                style={{height: 64, width: 64}}
+                style={styles.itemImage}
                 />
+                <View style={styles.itemName}>
+                  <Text style={styles.itemNameText}>{items[selectedItems['item5']]["name"]}</Text>
+                </View>
               
               </View>
             </TouchableHighlight>
@@ -261,8 +279,11 @@ const MainScreen = ({ route, navigation }) => {
               <View style={styles.itemHolder}>
                 <Image
                 source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item6'] +'.png'}}
-                style={{height: 64, width: 64}}
+                style={styles.itemImage}
                 />
+                <View style={styles.itemName}>
+                  <Text style={styles.itemNameText}>{items[selectedItems['item6']]["name"]}</Text>
+                </View>
               
               </View>
             </TouchableHighlight>
@@ -281,19 +302,23 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 25,
     marginHorizontal: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    backgroundColor: '#2b4043'
   },
   topSection: {
     flexDirection: 'row',
   },
   bottomSection: {
-    borderColor: 'blue',
-    borderWidth: 4
-
+    alignItems: 'center'
   },
   championSection: {
     flex: 1,
     alignItems: 'center'
+  },
+  championName: {
+    color: 'gold',
+    fontWeight: 'bold',
+    fontSize: 20
   },
   statsSection: {
     flex: 1,
@@ -313,10 +338,26 @@ const styles = StyleSheet.create({
     height: 40
   },
   itemHolder: {
-    borderColor: 'red',
+    flexDirection: 'row',
+    borderColor: 'gold',
     borderWidth: 4,
     height: 72,
-    marginVertical: 10
+    width: 300,
+    marginVertical: 10,
+    borderRadius: 30
+  },
+  itemImage: {
+    height: 64,
+    width: 64,
+    borderRadius: 30 
+  },
+  itemName: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  itemNameText: {
+    color: 'gold'
   }
 });
 
