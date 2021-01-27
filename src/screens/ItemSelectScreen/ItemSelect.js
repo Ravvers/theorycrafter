@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   item: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     borderWidth: 1,
     borderColor: '#CA9D4B'
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#FFFFFF',
     flexShrink: 1,
-    fontSize: 12
+    // fontSize: 12
   }
 });
 

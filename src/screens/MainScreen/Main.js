@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableHighlight, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
 import HealthImg from '../../img/hp.png';
@@ -61,29 +61,33 @@ const MainScreen = ({ route, navigation }) => {
       <View>
         <View>
           <Text style={styles.championName}>
-            {route.params.selectedChampion}
+            {champions[route.params.selectedChampion]['name']}
           </Text>
         </View>
         
       <View style={styles.levelSection}>
         <View style={styles.levelButton}>
-          <Button title='-' onPress={() => {
+          <TouchableOpacity onPress={() => {
                   if(championLevel != 1) {
                     setChampionLevel(championLevel => championLevel - 1);
                   }
                 }
-                } />
+                }>
+            <Text style={styles.levelMinusButtonText}>-</Text>
+          </TouchableOpacity>
         </View>
         <View>
           <Text style={styles.championLevel}>{championLevel}</Text>
         </View>
         <View style={styles.levelButton}>
-          <Button title='+' onPress={() => {
+          <TouchableOpacity onPress={() => {
                   if(championLevel != 18) {
                     setChampionLevel(championLevel => championLevel + 1);
                   }
                 }
-                } />
+                }>
+            <Text style={styles.levelPlusButtonText}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
       </View>
@@ -92,7 +96,7 @@ const MainScreen = ({ route, navigation }) => {
     else {
       return(
       <Text style={styles.championName}>
-        Choose a champion!
+        Champion
       </Text>
       )
     }
@@ -102,24 +106,24 @@ const MainScreen = ({ route, navigation }) => {
   const getChampionIcon = () => {
     if('selectedChampion' in route.params) {
       return(
-        <TouchableHighlight style={styles.championImageTouchable} onPress={() => {
+        <TouchableOpacity style={styles.championImageTouchable} onPress={() => {
           navigation.navigate('ChampionSelect', {champions: champions}
           )}}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
                   style={styles.championImage}
                 />
-              </TouchableHighlight>
+              </TouchableOpacity>
       )
     }
     else {
       return(
-        <TouchableHighlight style={styles.championImageTouchable} onPress={() => navigation.navigate('ChampionSelect', {champions: champions})}>
+        <TouchableOpacity style={styles.championImageTouchable} onPress={() => navigation.navigate('ChampionSelect', {champions: champions})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/29.png'}}
                   style={styles.championImage}
                 />
-              </TouchableHighlight>
+              </TouchableOpacity>
       )
     }
   }
@@ -183,147 +187,159 @@ const MainScreen = ({ route, navigation }) => {
                   source={HealthImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.HP}</Text>
+                <Text style={styles.statText}>{championStats.HP}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={ManaImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.MP}</Text>
+                <Text style={styles.statText}>{championStats.MP}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AttackDamageImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.AD}</Text>
+                <Text style={styles.statText}>{championStats.AD}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AbilityPowerImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.AP}</Text>
+                <Text style={styles.statText}>{championStats.AP}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={ArmorImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.Armor}</Text>
+                <Text style={styles.statText}>{championStats.Armor}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={MagicResistImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.MR}</Text>
+                <Text style={styles.statText}>{championStats.MR}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AttackSpeedImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.AS}</Text>
+                <Text style={styles.statText}>{championStats.AS}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={AbilityHasteImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.AH}</Text>
+                <Text style={styles.statText}>{championStats.AH}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={CritImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.Crit}</Text>
+                <Text style={styles.statText}>{championStats.Crit}</Text>
               </View>
               <View style={styles.statContainer}>
                 <Image
                   source={MoveSpeedImg}
                   style={styles.statImage}
                 />
-                <Text>{championStats.MS}</Text>
+                <Text style={styles.statText}>{championStats.MS}</Text>
               </View>
             </View>
           </View>
 
           <View style={styles.bottomSection}>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items})}>
               <View style={styles.itemHolder}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item1'] +'.png'}}
-                style={styles.itemImage}
+                <View style={styles.imageHolder}>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item1'] +'.png'}}
+                    style={styles.itemImage}
                 />
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemNameText}>{items[selectedItems['item1']]["name"]}</Text>
                 </View>
               
               </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2', items: route.params.items})}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2', items: route.params.items})}>
               <View style={styles.itemHolder}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item2'] +'.png'}}
-                style={styles.itemImage}
+                <View style={styles.imageHolder}>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item2'] +'.png'}}
+                    style={styles.itemImage}
                 />
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemNameText}>{items[selectedItems['item2']]["name"]}</Text>
                 </View>
               
               </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3', items: route.params.items})}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3', items: route.params.items})}>
               <View style={styles.itemHolder}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item3'] +'.png'}}
-                style={styles.itemImage}
+                <View style={styles.imageHolder}>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item3'] +'.png'}}
+                    style={styles.itemImage}
                 />
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemNameText}>{items[selectedItems['item3']]["name"]}</Text>
                 </View>
               
               </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4', items: route.params.items})}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4', items: route.params.items})}>
               <View style={styles.itemHolder}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item4'] +'.png'}}
-                style={styles.itemImage}
+                <View style={styles.imageHolder}>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item4'] +'.png'}}
+                    style={styles.itemImage}
                 />
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemNameText}>{items[selectedItems['item4']]["name"]}</Text>
                 </View>
               
               </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5', items: route.params.items})}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5', items: route.params.items})}>
               <View style={styles.itemHolder}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item5'] +'.png'}}
-                style={styles.itemImage}
+                <View style={styles.imageHolder}>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item5'] +'.png'}}
+                    style={styles.itemImage}
                 />
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemNameText}>{items[selectedItems['item5']]["name"]}</Text>
                 </View>
               
               </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6', items: route.params.items})}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6', items: route.params.items})}>
               <View style={styles.itemHolder}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item6'] +'.png'}}
-                style={styles.itemImage}
+                <View style={styles.imageHolder}>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item6'] +'.png'}}
+                    style={styles.itemImage}
                 />
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemNameText}>{items[selectedItems['item6']]["name"]}</Text>
                 </View>
               
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
           </View>
           
@@ -338,9 +354,8 @@ const MainScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 25,
-    marginHorizontal: 10,
-    marginBottom: 20,
-    backgroundColor: '#2b4043'
+    paddingHorizontal: 10,
+    backgroundColor: '#0E141B'
   },
   topSection: {
     flexDirection: 'row',
@@ -355,71 +370,103 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   championImageTouchable: {
-    paddingTop: 15
+    marginTop: 25
   },
   championImage: {
-    width: 170,
-    height: 170,
-    borderRadius: 170/2,
-    borderColor: 'gold',
-    borderWidth: 4
+    width: 110,
+    height: 110,
+    // borderRadius: 170/2,
+    borderColor: '#CA9D4B',
+    borderWidth: 2
   },
   championName: {
-    color: 'gold',
+    color: '#CA9D4B',
     fontWeight: 'bold',
     fontSize: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: 5
   },
   levelSection: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center'
   },
   levelButton: {
-    width: '40%'
+    width: '35%',
+    height: 40,
+    justifyContent: 'center'
+  },
+  levelMinusButtonText: {
+    color: '#CA9D4B',
+    fontSize: 60,
+    textAlign: 'center'
+  },
+  levelPlusButtonText: {
+    color: '#CA9D4B',
+    fontSize: 35,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 4
   },
   championLevel: {
-    color: 'gold',
+    color: '#CA9D4B',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 22,
+    marginTop: 7
   },
   statsSection: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
+    marginTop: 25,
+    marginRight: 10
   },
   statContainer: {
     flexDirection: 'row',
     width: '50%',
     alignItems: 'center',
     flexWrap: 'wrap',
+    marginBottom: 10
+  },
+  statText: {
+    color: '#FFFFFF'
   },
   statImage: {
-    width: 40,
-    height: 40
+    width: 25,
+    height: 25,
+    marginRight: 10
   },
   itemHolder: {
     flexDirection: 'row',
-    borderColor: 'gold',
-    borderWidth: 4,
+    borderColor: '#CA9D4B',
+    borderWidth: 2,
     height: 72,
     width: 300,
-    marginVertical: 5,
-    borderRadius: 30
+    // marginVertical: 5,
+    marginBottom: 18
+  },
+  imageHolder: {
+    flex: 1
   },
   itemImage: {
-    height: 64,
-    width: 64,
-    borderRadius: 30 
+    height: 72,
+    width: 72,
+    borderColor: '#CA9D4B',
+    borderWidth: 2,
+    position: 'absolute',
+    bottom: -2,
+    left: -2
   },
   itemName: {
-    flex: 1,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
+    width: 228
   },
   itemNameText: {
-    color: 'gold'
+    color: '#FFFFFF',
   }
 });
 
