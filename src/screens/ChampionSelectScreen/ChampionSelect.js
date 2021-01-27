@@ -32,7 +32,7 @@ const ChampionSelectScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#0E141B',
     marginTop: 25,
     marginHorizontal: 10,
   },
@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   championName: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    color: '#FFFFFF'
   }
 });
 

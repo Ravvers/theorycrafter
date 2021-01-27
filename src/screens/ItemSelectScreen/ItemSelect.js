@@ -20,7 +20,9 @@ const ItemSelectScreen = ({ route, navigation }) => {
                 style = {styles.item}
                 key = {key}
                 />
-                <Text>{items[key]['name']}</Text>
+                <View style={{ flexDirection: 'row'}}>
+                  <Text style={styles.itemName}>{items[key]['name']}</Text>
+                </View>
                 </TouchableOpacity>
               </View>
             );
@@ -33,7 +35,7 @@ const ItemSelectScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#0E141B',
     marginTop: 25,
     marginHorizontal: 10,
   },
@@ -48,6 +50,13 @@ const styles = StyleSheet.create({
     height: 100,
   },
   itemTouchable: {
+    marginBottom: 20
+  },
+  itemName: {
+    flex: 1,
+    textAlign: 'center',
+    color: '#FFFFFF',
+    flexShrink: 1,
   }
 });
 
