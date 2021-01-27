@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableHighlight, Button } from 'react-native';
+import { useIsFocused } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
 import HealthImg from '../../img/hp.png';
 import ManaImg from '../../img/mp.png';
@@ -18,10 +19,13 @@ const MainScreen = ({ route, navigation }) => {
   const items = route.params.items;
   const champions = route.params.champions;
 
-  const [champion, setChampion] = useState(() => {
-    return 'Select a champion!'
-  })
+  // const [champion, setChampion] = useState(() => {
+  //   return 'Select a champion!'
+  // })
 
+  const [championLevel, setChampionLevel] = useState(() => {
+    return 1
+  })
   const [championStats, setChampionStats] = useState(() => { 
     return {
       HP: 'HP',
@@ -51,9 +55,26 @@ const MainScreen = ({ route, navigation }) => {
   const getChampionName = () => {
     if (route.params != undefined && 'selectedChampion' in route.params) {
     return(
-      <Text style={styles.championName}>
+      <View>
+        <Text style={styles.championName}>
         {route.params.selectedChampion}
       </Text>
+      <View style={styles.levelSection}>
+                <Button style={styles.levelButton} title='-' onPress={() => {
+                  if(championLevel != 1) {
+                    setChampionLevel(championLevel => championLevel - 1);
+                  }
+                }
+                } />
+                <Text style={styles.championLevel}>{championLevel}</Text>
+                <Button style={styles.levelButton} title='+' onPress={() => {
+                  if(championLevel != 18) {
+                    setChampionLevel(championLevel => championLevel + 1);
+                  }
+                }
+                } />
+      </View>
+      </View>
     )
     }
     else {
@@ -69,7 +90,9 @@ const MainScreen = ({ route, navigation }) => {
   const getChampionIcon = () => {
     if(route.params != undefined && 'selectedChampion' in route.params) {
       return(
-        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => navigation.navigate('ChampionSelect', {champions: route.params.champions})}>
+        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => {
+          navigation.navigate('ChampionSelect', {champions: champions}
+          )}}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
                   style={{width: 170, height: 170, borderRadius: 170/2}}
@@ -79,7 +102,7 @@ const MainScreen = ({ route, navigation }) => {
     }
     else {
       return(
-        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {champions: route.params.champions})}>
+        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {champions: champions})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/29.png'}}
                   style={{width: 170, height: 170, borderRadius: 170/2}}
@@ -89,45 +112,47 @@ const MainScreen = ({ route, navigation }) => {
     }
   }
 
-  const getChampionStats = () => {
-    return fetch('http://ddragon.leagueoflegends.com/cdn/11.2.1/data/en_AU/champion/' + route.params.selectedChampion +'.json')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          const championStatsAPI = (responseJson['data'][route.params.selectedChampion]["stats"])
-          setChampionStats({
-            HP: championStatsAPI["hp"],
-            MP: championStatsAPI["mp"],
-            AD: championStatsAPI["attackdamage"],
-            AP: 0,
-            Armor: championStatsAPI["armor"],
-            MR: championStatsAPI["spellblock"],
-            AS: championStatsAPI["attackspeed"],
-            AH: 0,
-            Crit: championStatsAPI["crit"],
-            MS: championStatsAPI["movespeed"]}
-        )})
-        .catch((error) => {
-          console.error(error);
-        });
+  const updateChampionStats = () => {
+    const championStatsAPI = champions[route.params.selectedChampion]["stats"]
+    setChampionStats({
+      HP: championStatsAPI["hp"] + ((championLevel - 1) * championStatsAPI["hpperlevel"]),
+      MP: championStatsAPI["mp"] + ((championLevel - 1) * championStatsAPI["mpperlevel"]),
+      AD: championStatsAPI["attackdamage"] + ((championLevel - 1) * championStatsAPI["attackdamageperlevel"]),
+      AP: 0,
+      Armor: championStatsAPI["armor"] + ((championLevel - 1) * championStatsAPI["armorperlevel"]),
+      MR: championStatsAPI["spellblock"] + ((championLevel - 1) * championStatsAPI["spellblockperlevel"]),
+      AS: championStatsAPI["attackspeed"] * ((championLevel) * championStatsAPI["attackspeedperlevel"]),
+      AH: 0,
+      Crit: championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"]),
+      MS: championStatsAPI["movespeed"]
+    })
   }
 
-  const updateChampionStats = () => {
+  const getChampionStats = () => {
     if(route.params != undefined && 'selectedChampion' in route.params) {
-      getChampionStats()
+      updateChampionStats()
 
     }
   }
 
-  updateChampionStats();
+  const isFocused = useIsFocused();
 
+  useEffect(() => {
+      getChampionStats();
+      updateSelectedItems();
+  }, [isFocused]);
   
+  useEffect(() => {
+    if(route.params != undefined && 'selectedChampion' in route.params){
+      updateChampionStats();
+    }
+  }, [championLevel]);
   
   const updateSelectedItems = () => {
     if(route.params != undefined && 'selectedItem' in route.params){
         selectedItems[route.params.itemSlot] = route.params.selectedItem
     }
   }
-  updateSelectedItems();
 
     return(
         <View style={styles.container}>
@@ -316,6 +341,18 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   championName: {
+    color: 'gold',
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  levelSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  levelButton: {
+    width: '50%'
+  },
+  championLevel: {
     color: 'gold',
     fontWeight: 'bold',
     fontSize: 20
