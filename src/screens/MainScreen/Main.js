@@ -14,7 +14,7 @@ import AbilityHasteImg from '../../img/cd.png';
 import CritImg from '../../img/crit.png';
 import MoveSpeedImg from '../../img/ms.png';
 
-import itemSlot from '../../components/itemSlot';
+import ItemSlot from '../../components/ItemSlot';
 
 const MainScreen = ({ route, navigation }) => {
 
@@ -173,7 +173,9 @@ const MainScreen = ({ route, navigation }) => {
   const updateSelectedItems = () => {
     if('selectedItem' in route.params){
         selectedItems[route.params.itemSlot] = route.params.selectedItem
-        updateChampionStats();
+        if('selectedChampion' in route.params){
+          updateChampionStats();
+        }
     }
   }
 
@@ -302,6 +304,7 @@ const MainScreen = ({ route, navigation }) => {
 
           <View style={styles.bottomSection}>
             <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items})}>
+              {/* <ItemSlot selectedItem = {selectedItems['item1']} itemName={selectedItems['item1']['name']} ></ItemSlot> */}
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
@@ -400,7 +403,8 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 25,
     paddingHorizontal: 10,
-    backgroundColor: '#0E141B'
+    backgroundColor: '#0E141B',
+    paddingBottom: 30 //to fill screen without champion
   },
   topSection: {
     flexDirection: 'row',

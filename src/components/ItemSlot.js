@@ -1,22 +1,26 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 const ItemSlot = (props) => {
+    console.log(styles)
+    // const imageComponent = () => {
+    //     if(props.itemS)
+    // }
     return(
         <View style={styles.itemHolder}>
             <View style={styles.imageHolder}>
                 <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + props.selectedItems[props.itemSlot] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + props.selectedItem +'.png'}}
                     style={styles.itemImage}
                 />
             </View>
             <View style={styles.itemName}>
-                <Text style={styles.itemNameText}>{props.name}</Text>
+                <Text style={styles.itemNameText}>{props.itemName}</Text>
             </View>
         
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
   itemHolder: {
@@ -25,7 +29,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     height: 72,
     width: 300,
-    // marginVertical: 5,
     marginBottom: 18
   },
   imageHolder: {
