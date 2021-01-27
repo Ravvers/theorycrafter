@@ -44,10 +44,12 @@ const LoadingScreen = ({ navigation }) => {
 
     function addItemsToState(responseJson) {
         for (const key in responseJson["data"]) {
-          items[key] = {
+          if(responseJson["data"][key]["gold"]["purchasable"]) {
+            items[key] = {
               name: responseJson["data"][key]["name"],
               stats: responseJson["data"][key]["stats"]
           };
+          }
         }
     }
 

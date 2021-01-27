@@ -40,14 +40,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   itemScrollList: {
+    marginTop: 15,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   item: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#CA9D4B'
   },
   itemTouchable: {
     marginBottom: 20
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#FFFFFF',
     flexShrink: 1,
+    fontSize: 12
   }
 });
 

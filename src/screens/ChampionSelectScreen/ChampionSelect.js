@@ -34,17 +34,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0E141B',
     marginTop: 25,
-    marginHorizontal: 10,
+    marginHorizontal: 10
   },
   championScrollList: {
+    marginTop: 15,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   champion: {
     width: 100,
     height: 100,
+    borderWidth: 1,
+    borderColor: '#CA9D4B'
   },
   championTouchable: {
     marginBottom: 20
