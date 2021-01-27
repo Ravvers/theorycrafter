@@ -2,13 +2,17 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
 const StatSlot = (props) => {
+    var unit = '';
+    if(props.statName == 'Crit') {
+        unit = '%'
+    }
     return(
         <View style={styles.statContainer}>
             <Image
                 source={props.image}
                 style={styles.statImage}
             />
-            <Text style={styles.statText}>{props.stat}</Text>
+            <Text style={styles.statText}>{props.stat} {unit}</Text>
         </View>
     )
 }

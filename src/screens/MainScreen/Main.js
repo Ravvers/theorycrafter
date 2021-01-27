@@ -146,7 +146,7 @@ const MainScreen = ({ route, navigation }) => {
       MR: Math.round((championStatsAPI["spellblock"] + ((championLevel - 1) * championStatsAPI["spellblockperlevel"] * growthMultiplier(championLevel) + itemTotalStats.mr) + Number.EPSILON) * 100) / 100,
       AS: Math.round((championStatsAPI["attackspeed"] * (1 + (championLevel - 1) * championStatsAPI["attackspeedperlevel"] / 100 * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
       AH: 0,
-      Crit: Math.round((championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"] * growthMultiplier(championLevel) + itemTotalStats.crit) + Number.EPSILON) * 100) / 100,
+      Crit: Math.round((championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"] * growthMultiplier(championLevel) + itemTotalStats.crit) + Number.EPSILON) * 100),
       MS: Math.round(((championStatsAPI["movespeed"] + itemTotalStats.ms) * (1 + itemTotalStats.Sms) + Number.EPSILON) * 100) / 100
     })
   }
@@ -238,7 +238,7 @@ const MainScreen = ({ route, navigation }) => {
               <StatSlot stat={championStats.MR} image={MagicResistImg}></StatSlot>
               <StatSlot stat={championStats.AS} image={AttackSpeedImg}></StatSlot>
               <StatSlot stat={championStats.AH} image={AbilityHasteImg}></StatSlot>
-              <StatSlot stat={championStats.Crit} image={CritImg}></StatSlot>
+              <StatSlot stat={championStats.Crit} image={CritImg} statName='Crit'></StatSlot>
               <StatSlot stat={championStats.MS} image={MoveSpeedImg}></StatSlot>
             </View>
           </View>
