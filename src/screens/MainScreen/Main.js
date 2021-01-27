@@ -23,6 +23,7 @@ const MainScreen = ({ route, navigation }) => {
 
   const items = route.params.items;
   const champions = route.params.champions;
+  const apiVersion = route.params.apiVersion;
   const growthMultiplier = (championLevel) => {
     return (0.7025 + 0.0175 * (championLevel - 1))
   }
@@ -113,10 +114,10 @@ const MainScreen = ({ route, navigation }) => {
     if('selectedChampion' in route.params) {
       return(
         <TouchableOpacity style={styles.championImageTouchable} onPress={() => {
-          navigation.navigate('ChampionSelect', {champions: champions}
+          navigation.navigate('ChampionSelect', {champions: champions, apiVersion: apiVersion}
           )}}>
                 <Image
-                  source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
+                  source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/champion/' + route.params.selectedChampion +'.png'}}
                   style={styles.championImage}
                 />
               </TouchableOpacity>
@@ -124,9 +125,9 @@ const MainScreen = ({ route, navigation }) => {
     }
     else {
       return(
-        <TouchableOpacity style={styles.championImageTouchable} onPress={() => navigation.navigate('ChampionSelect', {champions: champions})}>
+        <TouchableOpacity style={styles.championImageTouchable} onPress={() => navigation.navigate('ChampionSelect', {champions: champions, apiVersion: apiVersion})}>
                 <Image
-                  source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/29.png'}}
+                  source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/profileicon/29.png'}}
                   style={styles.championImage}
                 />
               </TouchableOpacity>
@@ -244,12 +245,12 @@ const MainScreen = ({ route, navigation }) => {
           </View>
 
           <View style={styles.bottomSection}>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items, apiVersion: apiVersion})}>
               {/* <ItemSlot selectedItem = {selectedItems['item1']} itemName={selectedItems['item1']['name']} ></ItemSlot> */}
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item1'] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item1'] +'.png'}}
                     style={styles.itemImage}
                 />
                 </View>
@@ -259,11 +260,11 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2', items: route.params.items, apiVersion: apiVersion})}>
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item2'] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item2'] +'.png'}}
                     style={styles.itemImage}
                 />
                 </View>
@@ -273,11 +274,11 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3', items: route.params.items, apiVersion: apiVersion})}>
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item3'] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item3'] +'.png'}}
                     style={styles.itemImage}
                 />
                 </View>
@@ -287,11 +288,11 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4', items: route.params.items, apiVersion: apiVersion})}>
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item4'] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item4'] +'.png'}}
                     style={styles.itemImage}
                 />
                 </View>
@@ -301,11 +302,11 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5', items: route.params.items, apiVersion: apiVersion})}>
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item5'] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item5'] +'.png'}}
                     style={styles.itemImage}
                 />
                 </View>
@@ -315,11 +316,11 @@ const MainScreen = ({ route, navigation }) => {
               
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6', items: route.params.items})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6', items: route.params.items, apiVersion: apiVersion})}>
               <View style={styles.itemHolder}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + selectedItems['item6'] +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item6'] +'.png'}}
                     style={styles.itemImage}
                 />
                 </View>

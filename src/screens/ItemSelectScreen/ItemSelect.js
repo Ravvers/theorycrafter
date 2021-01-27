@@ -6,6 +6,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 const ItemSelectScreen = ({ route, navigation }) => {
 
   const items = route.params.items;
+  const apiVersion = route.params.apiVersion;
+  
     return(
         <View style={styles.container}>
           <ScrollView 
@@ -16,7 +18,7 @@ const ItemSelectScreen = ({ route, navigation }) => {
               <View key={key}>
                 <TouchableOpacity style={styles.itemTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedItem: key, itemSlot: route.params.itemSlot})}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + key +'.png'}}
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + key +'.png'}}
                     style = {styles.item}
                     key = {key}
                   />

@@ -8,9 +8,25 @@ const LoadingScreen = ({ navigation }) => {
 
     var items = {};
     var champions = {};
+    var apiVersion = '';
+
+    function getVersionFromAPI() {
+      return fetch('https://ddragon.leagueoflegends.com/api/versions.json')
+          .then((response) => response.json())
+          .then((responseJson) => {
+            apiVersion = responseJson[0];
+            getChampionsFromAPI();
+            getItemsFromAPI();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    }
+
+    getVersionFromAPI();
 
     function getChampionsFromAPI() {
-      return fetch('http://ddragon.leagueoflegends.com/cdn/11.2.1/data/en_AU/champion.json')
+      return fetch('http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/data/en_AU/champion.json')
           .then((response) => response.json())
           .then((responseJson) => {
             addChampionsToState(responseJson)
@@ -29,10 +45,8 @@ const LoadingScreen = ({ navigation }) => {
         }
     }
 
-    getChampionsFromAPI();
-
     function getItemsFromAPI() {
-    return fetch('http://ddragon.leagueoflegends.com/cdn/11.2.1/data/en_US/item.json')
+    return fetch('http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/data/en_US/item.json')
         .then((response) => response.json())
         .then((responseJson) => {
           addItemsToState(responseJson)
@@ -59,8 +73,6 @@ const LoadingScreen = ({ navigation }) => {
         }
     }
 
-    getItemsFromAPI();
-
     return (
         <View style={styles.container}>
             <Video
@@ -75,6 +87,7 @@ const LoadingScreen = ({ navigation }) => {
                         navigation.navigate('Main', {
                             champions: champions,
                             items: items,
+                            apiVersion: apiVersion
                         } );
                     }
                 }}

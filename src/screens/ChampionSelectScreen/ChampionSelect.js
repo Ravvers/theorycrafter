@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const ChampionSelectScreen = ({ route, navigation }) => {
+  
   const champions = route.params.champions
+  const apiVersion = route.params.apiVersion;
     
     return(
         <View style={styles.container}>
@@ -15,7 +17,7 @@ const ChampionSelectScreen = ({ route, navigation }) => {
                 <View key={key}>
                     <TouchableOpacity style={styles.championTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedChampion: key})}>
                       <Image
-                        source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + key +'.png'}}
+                        source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/champion/' + key +'.png'}}
                         style = {styles.champion}
                         key = {key}
                       />
