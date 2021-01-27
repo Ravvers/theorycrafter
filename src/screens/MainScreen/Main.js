@@ -18,6 +18,9 @@ const MainScreen = ({ route, navigation }) => {
 
   const items = route.params.items;
   const champions = route.params.champions;
+  const growthMultiplier = (championLevel) => {
+    return (0.7025 + 0.0175 * (championLevel - 1))
+  }
 
   // const [champion, setChampion] = useState(() => {
   //   return 'Select a champion!'
@@ -53,26 +56,35 @@ const MainScreen = ({ route, navigation }) => {
   })
 
   const getChampionName = () => {
-    if (route.params != undefined && 'selectedChampion' in route.params) {
+    if ('selectedChampion' in route.params) {
     return(
       <View>
-        <Text style={styles.championName}>
-        {route.params.selectedChampion}
-      </Text>
+        <View>
+          <Text style={styles.championName}>
+            {route.params.selectedChampion}
+          </Text>
+        </View>
+        
       <View style={styles.levelSection}>
-                <Button style={styles.levelButton} title='-' onPress={() => {
+        <View style={styles.levelButton}>
+          <Button title='-' onPress={() => {
                   if(championLevel != 1) {
                     setChampionLevel(championLevel => championLevel - 1);
                   }
                 }
                 } />
-                <Text style={styles.championLevel}>{championLevel}</Text>
-                <Button style={styles.levelButton} title='+' onPress={() => {
+        </View>
+        <View>
+          <Text style={styles.championLevel}>{championLevel}</Text>
+        </View>
+        <View style={styles.levelButton}>
+          <Button title='+' onPress={() => {
                   if(championLevel != 18) {
                     setChampionLevel(championLevel => championLevel + 1);
                   }
                 }
                 } />
+        </View>
       </View>
       </View>
     )
@@ -88,24 +100,24 @@ const MainScreen = ({ route, navigation }) => {
   }
 
   const getChampionIcon = () => {
-    if(route.params != undefined && 'selectedChampion' in route.params) {
+    if('selectedChampion' in route.params) {
       return(
-        <TouchableHighlight style = {{paddingTop: 15}}onPress={() => {
+        <TouchableHighlight style={styles.championImageTouchable} onPress={() => {
           navigation.navigate('ChampionSelect', {champions: champions}
           )}}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + route.params.selectedChampion +'.png'}}
-                  style={{width: 170, height: 170, borderRadius: 170/2}}
+                  style={styles.championImage}
                 />
               </TouchableHighlight>
       )
     }
     else {
       return(
-        <TouchableHighlight onPress={() => navigation.navigate('ChampionSelect', {champions: champions})}>
+        <TouchableHighlight style={styles.championImageTouchable} onPress={() => navigation.navigate('ChampionSelect', {champions: champions})}>
                 <Image
                   source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/profileicon/29.png'}}
-                  style={{width: 170, height: 170, borderRadius: 170/2}}
+                  style={styles.championImage}
                 />
               </TouchableHighlight>
       )
@@ -115,21 +127,21 @@ const MainScreen = ({ route, navigation }) => {
   const updateChampionStats = () => {
     const championStatsAPI = champions[route.params.selectedChampion]["stats"]
     setChampionStats({
-      HP: championStatsAPI["hp"] + ((championLevel - 1) * championStatsAPI["hpperlevel"]),
-      MP: championStatsAPI["mp"] + ((championLevel - 1) * championStatsAPI["mpperlevel"]),
-      AD: championStatsAPI["attackdamage"] + ((championLevel - 1) * championStatsAPI["attackdamageperlevel"]),
+      HP: Math.round((championStatsAPI["hp"] + ((championLevel - 1) * championStatsAPI["hpperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
+      MP: Math.round((championStatsAPI["mp"] + ((championLevel - 1) * championStatsAPI["mpperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
+      AD: Math.round((championStatsAPI["attackdamage"] + ((championLevel - 1) * championStatsAPI["attackdamageperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
       AP: 0,
-      Armor: championStatsAPI["armor"] + ((championLevel - 1) * championStatsAPI["armorperlevel"]),
-      MR: championStatsAPI["spellblock"] + ((championLevel - 1) * championStatsAPI["spellblockperlevel"]),
-      AS: championStatsAPI["attackspeed"] * ((championLevel) * championStatsAPI["attackspeedperlevel"]),
+      Armor: Math.round((championStatsAPI["armor"] + ((championLevel - 1) * championStatsAPI["armorperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
+      MR: Math.round((championStatsAPI["spellblock"] + ((championLevel - 1) * championStatsAPI["spellblockperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
+      AS: Math.round((championStatsAPI["attackspeed"] * ((championLevel - 1) * championStatsAPI["attackspeedperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
       AH: 0,
-      Crit: championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"]),
+      Crit: championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"] * growthMultiplier(championLevel)),
       MS: championStatsAPI["movespeed"]
     })
   }
 
   const getChampionStats = () => {
-    if(route.params != undefined && 'selectedChampion' in route.params) {
+    if('selectedChampion' in route.params) {
       updateChampionStats()
 
     }
@@ -138,18 +150,18 @@ const MainScreen = ({ route, navigation }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-      getChampionStats();
-      updateSelectedItems();
+    getChampionStats();
+    updateSelectedItems();
   }, [isFocused]);
   
   useEffect(() => {
-    if(route.params != undefined && 'selectedChampion' in route.params){
+    if('selectedChampion' in route.params){
       updateChampionStats();
     }
   }, [championLevel]);
   
   const updateSelectedItems = () => {
-    if(route.params != undefined && 'selectedItem' in route.params){
+    if('selectedItem' in route.params){
         selectedItems[route.params.itemSlot] = route.params.selectedItem
     }
   }
@@ -334,23 +346,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   bottomSection: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 20,
   },
   championSection: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  championImageTouchable: {
+    paddingTop: 15
+  },
+  championImage: {
+    width: 170,
+    height: 170,
+    borderRadius: 170/2,
+    borderColor: 'gold',
+    borderWidth: 4
   },
   championName: {
     color: 'gold',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
+    alignSelf: 'center'
   },
   levelSection: {
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   levelButton: {
-    width: '50%'
+    width: '40%'
   },
   championLevel: {
     color: 'gold',
@@ -380,7 +405,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     height: 72,
     width: 300,
-    marginVertical: 10,
+    marginVertical: 5,
     borderRadius: 30
   },
   itemImage: {
