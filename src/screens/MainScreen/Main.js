@@ -15,6 +15,7 @@ import CritImg from '../../img/crit.png';
 import MoveSpeedImg from '../../img/ms.png';
 
 import ItemSlot from '../../components/ItemSlot';
+import StatSlot from '../../components/StatSlot';
 
 const MainScreen = ({ route, navigation }) => {
 
@@ -229,76 +230,16 @@ const MainScreen = ({ route, navigation }) => {
             </View>
 
             <View style={styles.statsSection}>
-              <View style={styles.statContainer}>
-                <Image
-                  source={HealthImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.HP}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={ManaImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.MP}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={AttackDamageImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.AD}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={AbilityPowerImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.AP}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={ArmorImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.Armor}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={MagicResistImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.MR}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={AttackSpeedImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.AS}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={AbilityHasteImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.AH}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={CritImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.Crit}</Text>
-              </View>
-              <View style={styles.statContainer}>
-                <Image
-                  source={MoveSpeedImg}
-                  style={styles.statImage}
-                />
-                <Text style={styles.statText}>{championStats.MS}</Text>
-              </View>
+              <StatSlot stat={championStats.HP} image={HealthImg}></StatSlot>
+              <StatSlot stat={championStats.MP} image={ManaImg}></StatSlot>
+              <StatSlot stat={championStats.AD} image={AttackDamageImg}></StatSlot>
+              <StatSlot stat={championStats.AP} image={AbilityPowerImg}></StatSlot>
+              <StatSlot stat={championStats.Armor} image={ArmorImg}></StatSlot>
+              <StatSlot stat={championStats.MR} image={MagicResistImg}></StatSlot>
+              <StatSlot stat={championStats.AS} image={AttackSpeedImg}></StatSlot>
+              <StatSlot stat={championStats.AH} image={AbilityHasteImg}></StatSlot>
+              <StatSlot stat={championStats.Crit} image={CritImg}></StatSlot>
+              <StatSlot stat={championStats.MS} image={MoveSpeedImg}></StatSlot>
             </View>
           </View>
 
