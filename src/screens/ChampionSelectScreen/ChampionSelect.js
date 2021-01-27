@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0E141B',
     marginTop: 25,
-    marginHorizontal: 10
+    paddingHorizontal: 10
   },
   championScrollList: {
     marginTop: 15,
