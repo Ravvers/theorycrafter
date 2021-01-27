@@ -14,7 +14,11 @@ import AbilityHasteImg from '../../img/cd.png';
 import CritImg from '../../img/crit.png';
 import MoveSpeedImg from '../../img/ms.png';
 
+import itemSlot from '../../components/itemSlot';
+
 const MainScreen = ({ route, navigation }) => {
+
+  const isFocused = useIsFocused();
 
   const items = route.params.items;
   const champions = route.params.champions;
@@ -29,6 +33,7 @@ const MainScreen = ({ route, navigation }) => {
   const [championLevel, setChampionLevel] = useState(() => {
     return 1
   })
+
   const [championStats, setChampionStats] = useState(() => { 
     return {
       HP: 'HP',
@@ -46,12 +51,12 @@ const MainScreen = ({ route, navigation }) => {
 
   const [selectedItems, setSelectedItems] = useState(() => {
     return {
-      item1: '1001',
-      item2: '1001',
-      item3: '1001',
-      item4: '1001',
-      item5: '1001',
-      item6: '1001'
+      item1: '0',
+      item2: '0',
+      item3: '0',
+      item4: '0',
+      item5: '0',
+      item6: '0'
     }
   })
 
@@ -129,18 +134,19 @@ const MainScreen = ({ route, navigation }) => {
   }
 
   const updateChampionStats = () => {
-    const championStatsAPI = champions[route.params.selectedChampion]["stats"]
+    const championStatsAPI = champions[route.params.selectedChampion]["stats"];
+    const itemTotalStats = getItemsStats();
     setChampionStats({
-      HP: Math.round((championStatsAPI["hp"] + ((championLevel - 1) * championStatsAPI["hpperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
-      MP: Math.round((championStatsAPI["mp"] + ((championLevel - 1) * championStatsAPI["mpperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
-      AD: Math.round((championStatsAPI["attackdamage"] + ((championLevel - 1) * championStatsAPI["attackdamageperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
-      AP: 0,
-      Armor: Math.round((championStatsAPI["armor"] + ((championLevel - 1) * championStatsAPI["armorperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
-      MR: Math.round((championStatsAPI["spellblock"] + ((championLevel - 1) * championStatsAPI["spellblockperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
-      AS: Math.round((championStatsAPI["attackspeed"] * ((championLevel - 1) * championStatsAPI["attackspeedperlevel"] * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
+      HP: Math.round((championStatsAPI["hp"] + ((championLevel - 1) * championStatsAPI["hpperlevel"] * growthMultiplier(championLevel) + itemTotalStats.hp) + Number.EPSILON) * 100) / 100,
+      MP: Math.round((championStatsAPI["mp"] + ((championLevel - 1) * championStatsAPI["mpperlevel"] * growthMultiplier(championLevel) + itemTotalStats.mp) + Number.EPSILON) * 100) / 100,
+      AD: Math.round((championStatsAPI["attackdamage"] + ((championLevel - 1) * championStatsAPI["attackdamageperlevel"] * growthMultiplier(championLevel) + itemTotalStats.ad) + Number.EPSILON) * 100) / 100,
+      AP: 0 + itemTotalStats.ap,
+      Armor: Math.round((championStatsAPI["armor"] + ((championLevel - 1) * championStatsAPI["armorperlevel"] * growthMultiplier(championLevel) + itemTotalStats.armor) + Number.EPSILON) * 100) / 100,
+      MR: Math.round((championStatsAPI["spellblock"] + ((championLevel - 1) * championStatsAPI["spellblockperlevel"] * growthMultiplier(championLevel) + itemTotalStats.mr) + Number.EPSILON) * 100) / 100,
+      AS: Math.round((championStatsAPI["attackspeed"] * (1 + (championLevel - 1) * championStatsAPI["attackspeedperlevel"] / 100 * growthMultiplier(championLevel)) + Number.EPSILON) * 100) / 100,
       AH: 0,
-      Crit: championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"] * growthMultiplier(championLevel)),
-      MS: championStatsAPI["movespeed"]
+      Crit: Math.round((championStatsAPI["crit"] + ((championLevel - 1) * championStatsAPI["critperlevel"] * growthMultiplier(championLevel) + itemTotalStats.crit) + Number.EPSILON) * 100) / 100,
+      MS: Math.round(((championStatsAPI["movespeed"] + itemTotalStats.ms) * (1 + itemTotalStats.Sms) + Number.EPSILON) * 100) / 100
     })
   }
 
@@ -151,7 +157,7 @@ const MainScreen = ({ route, navigation }) => {
     }
   }
 
-  const isFocused = useIsFocused();
+  
 
   useEffect(() => {
     getChampionStats();
@@ -167,6 +173,45 @@ const MainScreen = ({ route, navigation }) => {
   const updateSelectedItems = () => {
     if('selectedItem' in route.params){
         selectedItems[route.params.itemSlot] = route.params.selectedItem
+        updateChampionStats();
+    }
+  }
+
+  const getItemsStats = () => {
+    var totalStats = {
+      "FlatHPPoolMod": 0,
+      "FlatMPPoolMod": 0,
+      "FlatArmorMod": 0,
+      "FlatPhysicalDamageMod": 0,
+      "FlatMagicDamageMod": 0,
+      "FlatMovementSpeedMod": 0,
+      "PercentMovementSpeedMod": 0,
+      "FlatAttackSpeedMod": 0,
+      "PercentAttackSpeedMod": 0,
+      "FlatCritChanceMod": 0,
+      "FlatSpellBlockMod": 0,
+    }
+    
+    for (const [item, itemId] of Object.entries(selectedItems)) {
+      for(const [statName, value] of Object.entries(items[itemId]["stats"])) {
+        if (statName in totalStats) {
+          totalStats[statName] += value
+        }
+      }
+    }
+
+    return {
+      "hp": totalStats.FlatHPPoolMod,
+      "mp": totalStats.FlatMPPoolMod,
+      "armor": totalStats.FlatArmorMod,
+      "ad": totalStats.FlatPhysicalDamageMod,
+      "ap": totalStats.FlatMagicDamageMod,
+      "ms": totalStats.FlatMovementSpeedMod,
+      "Sms": totalStats.PercentMovementSpeedMod,
+      "as": totalStats.FlatAttackSpeedMod,
+      "Sas": totalStats.PercentAttackSpeedMod,
+      "crit": totalStats.FlatCritChanceMod,
+      "mr": totalStats.FlatSpellBlockMod
     }
   }
 
