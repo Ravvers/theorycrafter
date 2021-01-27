@@ -15,14 +15,14 @@ const ItemSelectScreen = ({ route, navigation }) => {
             return(
               <View key={key}>
                 <TouchableOpacity style={styles.itemTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedItem: key, itemSlot: route.params.itemSlot})}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + key +'.png'}}
-                style = {styles.item}
-                key = {key}
-                />
-                <View style={{ flexDirection: 'row'}}>
-                  <Text style={styles.itemName}>{items[key]['name']}</Text>
-                </View>
+                  <Image
+                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + key +'.png'}}
+                    style = {styles.item}
+                    key = {key}
+                  />
+                  <View style={styles.itemNameContainer}>
+                    <Text style={styles.itemName}>{items[key]['name']}</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             );
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0E141B',
     marginTop: 25,
-    paddingHorizontal: 10,
+    paddingHorizontal: 10
   },
   itemScrollList: {
     marginTop: 15,
@@ -55,12 +55,14 @@ const styles = StyleSheet.create({
   itemTouchable: {
     marginBottom: 20
   },
+  itemNameContainer: {
+    flexDirection: 'row'
+  },
   itemName: {
     flex: 1,
     textAlign: 'center',
     color: '#FFFFFF',
-    flexShrink: 1,
-    // fontSize: 12
+    flexShrink: 1
   }
 });
 

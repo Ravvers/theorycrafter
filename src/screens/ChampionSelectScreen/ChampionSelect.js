@@ -11,18 +11,18 @@ const ChampionSelectScreen = ({ route, navigation }) => {
             contentContainerStyle={styles.championScrollList}
           >
             {Object.keys(champions).map(function(key, index) {
-            return(
-              <View key={key}>
-                <TouchableOpacity style={styles.championTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedChampion: key})}>
-                <Image
-                source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + key +'.png'}}
-                style = {styles.champion}
-                key = {key}
-                />
-                <Text style={styles.championName}>{champions[key]['name']}</Text>
-                </TouchableOpacity>
-              </View>
-            );
+              return(
+                <View key={key}>
+                    <TouchableOpacity style={styles.championTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedChampion: key})}>
+                      <Image
+                        source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/champion/' + key +'.png'}}
+                        style = {styles.champion}
+                        key = {key}
+                      />
+                      <Text style={styles.championName}>{champions[key]['name']}</Text>
+                    </TouchableOpacity>
+                </View>
+              );
           })}
           </ScrollView>
         </View>
