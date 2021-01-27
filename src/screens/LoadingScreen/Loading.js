@@ -23,7 +23,8 @@ const LoadingScreen = ({ navigation }) => {
     function addChampionsToState(responseJson) {
         for (const key in responseJson["data"]) {
           champions[key] = {
-              stats: responseJson["data"][key]["stats"]
+            name: responseJson["data"][key]["name"],
+            stats: responseJson["data"][key]["stats"]
           };
         }
     }

@@ -19,7 +19,7 @@ const ChampionSelectScreen = ({ route, navigation }) => {
                 style = {styles.champion}
                 key = {key}
                 />
-                <Text style={styles.championName}>{key}</Text>
+                <Text style={styles.championName}>{champions[key]['name']}</Text>
                 </TouchableOpacity>
               </View>
             );
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   championTouchable: {
+    marginBottom: 20
   },
   championName: {
     alignSelf: 'center'
