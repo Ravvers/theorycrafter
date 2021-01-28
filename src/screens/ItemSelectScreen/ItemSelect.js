@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   item: {
-    width: 100,
-    height: 100,
+    width: 98,
+    height: 98,
     borderWidth: 1,
     borderColor: '#CA9D4B'
   },
