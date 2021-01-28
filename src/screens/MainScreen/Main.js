@@ -13,6 +13,7 @@ import AttackSpeedImg from '../../img/as.png';
 import AbilityHasteImg from '../../img/cd.png';
 import CritImg from '../../img/crit.png';
 import MoveSpeedImg from '../../img/ms.png';
+import SelectChampionImg from '../../img/29.gif';
 
 import ItemSlot from '../../components/ItemSlot';
 import StatSlot from '../../components/StatSlot';
@@ -127,7 +128,7 @@ const MainScreen = ({ route, navigation }) => {
       return(
         <TouchableOpacity style={styles.championImageTouchable} onPress={() => navigation.navigate('ChampionSelect', {champions: champions, apiVersion: apiVersion})}>
                 <Image
-                  source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/profileicon/29.png'}}
+                  source={SelectChampionImg}
                   style={styles.championImage}
                 />
               </TouchableOpacity>
@@ -320,9 +321,9 @@ const styles = StyleSheet.create({
   championImage: {
     width: 110,
     height: 110,
-    // borderRadius: 170/2,
     borderColor: '#CA9D4B',
-    borderWidth: 2
+    borderWidth: 2,
+    overlayColor: '#FFFFFF'
   },
   championName: {
     color: '#CA9D4B',
@@ -333,7 +334,6 @@ const styles = StyleSheet.create({
   },
   levelSection: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'center'
   },
