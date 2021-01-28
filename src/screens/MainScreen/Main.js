@@ -294,14 +294,14 @@ const MainScreen = ({ route, navigation }) => {
 
           
 
-          <StatusBar style="dark" />
+          <StatusBar style="light" />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
+    paddingTop: 25,
     paddingHorizontal: 10,
     backgroundColor: '#0E141B',
     paddingBottom: 30 //to fill screen without champion
