@@ -64,7 +64,7 @@ const LoadingScreen = ({ navigation }) => {
         }
       }
         for (const key in responseJson["data"]) {
-          if(responseJson["data"][key]["gold"]["purchasable"]) {
+          if(responseJson["data"][key]["gold"]["purchasable"] && (responseJson["data"][key]["maps"]["11"] || responseJson["data"][key]["maps"]["12"])) {
             items[key] = {
               name: responseJson["data"][key]["name"],
               stats: responseJson["data"][key]["stats"]
