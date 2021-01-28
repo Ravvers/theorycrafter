@@ -10,6 +10,8 @@ const LoadingScreen = ({ navigation }) => {
     var champions = {};
     var apiVersion = '';
 
+    let itemsOrderList = [];
+
     function getVersionFromAPI() {
       return fetch('https://ddragon.leagueoflegends.com/api/versions.json')
           .then((response) => response.json())
@@ -68,9 +70,12 @@ const LoadingScreen = ({ navigation }) => {
             items[key] = {
               name: responseJson["data"][key]["name"],
               stats: responseJson["data"][key]["stats"]
-          };
+            };
+            itemsOrderList.push([items[key]["name"], key])
           }
         }
+        itemsOrderList.sort()
+        itemsOrderList.unshift([items["0"], "0"])
     }
 
     return (
@@ -87,7 +92,8 @@ const LoadingScreen = ({ navigation }) => {
                         navigation.navigate('Main', {
                             champions: champions,
                             items: items,
-                            apiVersion: apiVersion
+                            apiVersion: apiVersion,
+                            itemsOrderList: itemsOrderList
                         } );
                     }
                 }}

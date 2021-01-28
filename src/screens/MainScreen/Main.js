@@ -25,6 +25,7 @@ const MainScreen = ({ route, navigation }) => {
   const items = route.params.items;
   const champions = route.params.champions;
   const apiVersion = route.params.apiVersion;
+  const itemsOrderList = route.params.itemsOrderList;
   const growthMultiplier = (championLevel) => {
     return (0.7025 + 0.0175 * (championLevel - 1))
   }
@@ -264,6 +265,7 @@ const MainScreen = ({ route, navigation }) => {
               navigation={navigation}
               items={items}
               apiVersion={apiVersion}
+              itemsOrderList={itemsOrderList}
             ></ItemSlot>
             <ItemSlot
               itemSlot='item2'
@@ -271,6 +273,7 @@ const MainScreen = ({ route, navigation }) => {
               navigation={navigation}
               items={items}
               apiVersion={apiVersion}
+              itemsOrderList={itemsOrderList}
             ></ItemSlot>
             <ItemSlot
               itemSlot='item3'
@@ -278,6 +281,7 @@ const MainScreen = ({ route, navigation }) => {
               navigation={navigation}
               items={items}
               apiVersion={apiVersion}
+              itemsOrderList={itemsOrderList}
             ></ItemSlot>
             <ItemSlot
               itemSlot='item4'
@@ -285,6 +289,7 @@ const MainScreen = ({ route, navigation }) => {
               navigation={navigation}
               items={items}
               apiVersion={apiVersion}
+              itemsOrderList={itemsOrderList}
             ></ItemSlot>
             <ItemSlot
               itemSlot='item5'
@@ -292,6 +297,7 @@ const MainScreen = ({ route, navigation }) => {
               navigation={navigation}
               items={items}
               apiVersion={apiVersion}
+              itemsOrderList={itemsOrderList}
             ></ItemSlot>
             <ItemSlot
               itemSlot='item6'
@@ -299,6 +305,7 @@ const MainScreen = ({ route, navigation }) => {
               navigation={navigation}
               items={items}
               apiVersion={apiVersion}
+              itemsOrderList={itemsOrderList}
             ></ItemSlot>
 
           </View>

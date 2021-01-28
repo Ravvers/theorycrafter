@@ -6,7 +6,7 @@ const ItemSlot = (props) => {
 
   const itemId = props.selectedItems[props.itemSlot];
     return(
-      <TouchableOpacity onPress={() => props.navigation.navigate('ItemSelect', {itemSlot: props.itemSlot, items: props.items, apiVersion: props.apiVersion})}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('ItemSelect', {itemSlot: props.itemSlot, items: props.items, apiVersion: props.apiVersion, itemsOrderList: props.itemsOrderList})}>
         <View style={styles.itemHolder}>
 
           <View style={styles.imageHolder}>
