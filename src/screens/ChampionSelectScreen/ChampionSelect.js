@@ -1,32 +1,35 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 
 const ChampionSelectScreen = ({ route, navigation }) => {
   
-  const champions = route.params.champions
+  const champions = route.params.champions;
   const apiVersion = route.params.apiVersion;
+  const championKeys = Object.keys(champions);
     
     return(
         <View style={styles.container}>
-          <ScrollView 
-            contentContainerStyle={styles.championScrollList}
-          >
-            {Object.keys(champions).map(function(key, index) {
-              return(
-                <View key={key}>
-                    <TouchableOpacity style={styles.championTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedChampion: key})}>
+          <FlatList
+            data={championKeys}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={3}
+            columnWrapperStyle={{justifyContent: 'space-between'}}
+            renderItem={({ item }) => {
+              return (
+                <View key={item}>
+                    <TouchableOpacity style={styles.championTouchable} key={item} onPress={() => navigation.navigate('Main', {selectedChampion: item})}>
                       <Image
-                        source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/champion/' + key +'.png'}}
+                        source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/champion/' + item +'.png'}}
                         style = {styles.champion}
-                        key = {key}
+                        key = {item}
                       />
-                      <Text style={styles.championName}>{champions[key]['name']}</Text>
+                      <Text style={styles.championName}>{champions[item]["name"]}</Text>
                     </TouchableOpacity>
                 </View>
-              );
-          })}
-          </ScrollView>
+              )
+            }}
+          />
         </View>
     );
 };
@@ -37,13 +40,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#0E141B',
     paddingTop: 25,
     paddingHorizontal: 10
-  },
-  championScrollList: {
-    marginTop: 15,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    justifyContent: 'space-around'
   },
   champion: {
     width: 100,

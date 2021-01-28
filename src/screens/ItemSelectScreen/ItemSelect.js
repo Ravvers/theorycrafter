@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 
 import Item0 from '../../img/item_yellow.png';
 

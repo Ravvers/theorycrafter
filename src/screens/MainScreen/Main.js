@@ -140,7 +140,6 @@ const MainScreen = ({ route, navigation }) => {
   const updateChampionStats = () => {
     const championStatsAPI = champions[route.params.selectedChampion]["stats"];
     const itemTotalStats = getItemsStats();
-    console.log(itemTotalStats)
     setChampionStats({
       HP: Math.round((championStatsAPI["hp"] + ((championLevel - 1) * championStatsAPI["hpperlevel"] * growthMultiplier(championLevel) + itemTotalStats.hp) + Number.EPSILON) * 100) / 100,
       MP: Math.round((championStatsAPI["mp"] + ((championLevel - 1) * championStatsAPI["mpperlevel"] * growthMultiplier(championLevel) + itemTotalStats.mp) + Number.EPSILON) * 100) / 100,
