@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import Item0 from '../../img/item_yellow.png';
 
 const ItemSelectScreen = ({ route, navigation }) => {
 
@@ -18,7 +19,7 @@ const ItemSelectScreen = ({ route, navigation }) => {
               <View key={key}>
                 <TouchableOpacity style={styles.itemTouchable} key={key} onPress={() => navigation.navigate('Main', {selectedItem: key, itemSlot: route.params.itemSlot})}>
                   <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + key +'.png'}}
+                    source={key == "0" ? Item0 : {uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + key +'.png'}}
                     style = {styles.item}
                     key = {key}
                   />

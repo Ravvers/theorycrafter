@@ -5,21 +5,13 @@ import Item0 from '../img/item_yellow.png';
 const ItemSlot = (props) => {
 
   const itemId = props.selectedItems[props.itemSlot];
-  console.log(itemId)
-  var imageSource = {};
-  if(itemId == '0') {
-    imageSource = Item0;
-  }
-  else {
-    imageSource = {uri: 'http://ddragon.leagueoflegends.com/cdn/' + props.apiVersion + '/img/item/' + itemId +'.png'}
-  }
     return(
       <TouchableOpacity onPress={() => props.navigation.navigate('ItemSelect', {itemSlot: props.itemSlot, items: props.items, apiVersion: props.apiVersion})}>
         <View style={styles.itemHolder}>
 
           <View style={styles.imageHolder}>
             <Image
-              source={imageSource}
+              source={itemId == "0" ? Item0 : {uri: 'http://ddragon.leagueoflegends.com/cdn/' + props.apiVersion + '/img/item/' + itemId +'.png'}}
               style={styles.itemImage}
             />
           </View>
