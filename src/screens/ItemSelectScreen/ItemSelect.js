@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     color: '#FFFFFF',
-    flexShrink: 1
+    flexShrink: 1,
+    fontSize: 13
   }
 });
 
