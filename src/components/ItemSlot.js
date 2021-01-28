@@ -1,24 +1,28 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const ItemSlot = (props) => {
-    console.log(styles)
+
+  const itemId = props.selectedItems[props.itemSlot];
     // const imageComponent = () => {
     //     if(props.itemS)
     // }
     return(
+      <TouchableOpacity onPress={() => props.navigation.navigate('ItemSelect', {itemSlot: props.itemSlot, items: props.items, apiVersion: props.apiVersion})}>
         <View style={styles.itemHolder}>
-            <View style={styles.imageHolder}>
-                <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/11.2.1/img/item/' + props.selectedItem +'.png'}}
-                    style={styles.itemImage}
-                />
-            </View>
-            <View style={styles.itemName}>
-                <Text style={styles.itemNameText}>{props.itemName}</Text>
-            </View>
+
+          <View style={styles.imageHolder}>
+            <Image
+              source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + props.apiVersion + '/img/item/' + itemId +'.png'}}
+              style={styles.itemImage}
+            />
+          </View>
+          <View style={styles.itemName}>
+            <Text style={styles.itemNameText}>{props.items[itemId]["name"]}</Text>
+          </View>
         
         </View>
+      </TouchableOpacity>
     );
 };
 

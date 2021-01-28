@@ -245,91 +245,49 @@ const MainScreen = ({ route, navigation }) => {
           </View>
 
           <View style={styles.bottomSection}>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item1', items: route.params.items, apiVersion: apiVersion})}>
-              {/* <ItemSlot selectedItem = {selectedItems['item1']} itemName={selectedItems['item1']['name']} ></ItemSlot> */}
-              <View style={styles.itemHolder}>
-                <View style={styles.imageHolder}>
-                  <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item1'] +'.png'}}
-                    style={styles.itemImage}
-                />
-                </View>
-                <View style={styles.itemName}>
-                  <Text style={styles.itemNameText}>{items[selectedItems['item1']]["name"]}</Text>
-                </View>
-              
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item2', items: route.params.items, apiVersion: apiVersion})}>
-              <View style={styles.itemHolder}>
-                <View style={styles.imageHolder}>
-                  <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item2'] +'.png'}}
-                    style={styles.itemImage}
-                />
-                </View>
-                <View style={styles.itemName}>
-                  <Text style={styles.itemNameText}>{items[selectedItems['item2']]["name"]}</Text>
-                </View>
-              
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item3', items: route.params.items, apiVersion: apiVersion})}>
-              <View style={styles.itemHolder}>
-                <View style={styles.imageHolder}>
-                  <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item3'] +'.png'}}
-                    style={styles.itemImage}
-                />
-                </View>
-                <View style={styles.itemName}>
-                  <Text style={styles.itemNameText}>{items[selectedItems['item3']]["name"]}</Text>
-                </View>
-              
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item4', items: route.params.items, apiVersion: apiVersion})}>
-              <View style={styles.itemHolder}>
-                <View style={styles.imageHolder}>
-                  <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item4'] +'.png'}}
-                    style={styles.itemImage}
-                />
-                </View>
-                <View style={styles.itemName}>
-                  <Text style={styles.itemNameText}>{items[selectedItems['item4']]["name"]}</Text>
-                </View>
-              
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item5', items: route.params.items, apiVersion: apiVersion})}>
-              <View style={styles.itemHolder}>
-                <View style={styles.imageHolder}>
-                  <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item5'] +'.png'}}
-                    style={styles.itemImage}
-                />
-                </View>
-                <View style={styles.itemName}>
-                  <Text style={styles.itemNameText}>{items[selectedItems['item5']]["name"]}</Text>
-                </View>
-              
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ItemSelect', {itemSlot: 'item6', items: route.params.items, apiVersion: apiVersion})}>
-              <View style={styles.itemHolder}>
-                <View style={styles.imageHolder}>
-                  <Image
-                    source={{uri: 'http://ddragon.leagueoflegends.com/cdn/' + apiVersion + '/img/item/' + selectedItems['item6'] +'.png'}}
-                    style={styles.itemImage}
-                />
-                </View>
-                <View style={styles.itemName}>
-                  <Text style={styles.itemNameText}>{items[selectedItems['item6']]["name"]}</Text>
-                </View>
-              
-              </View>
-            </TouchableOpacity>
+            
+            <ItemSlot
+              itemSlot='item1'
+              selectedItems={selectedItems}
+              navigation={navigation}
+              items={items}
+              apiVersion={apiVersion}
+            ></ItemSlot>
+            <ItemSlot
+              itemSlot='item2'
+              selectedItems={selectedItems}
+              navigation={navigation}
+              items={items}
+              apiVersion={apiVersion}
+            ></ItemSlot>
+            <ItemSlot
+              itemSlot='item3'
+              selectedItems={selectedItems}
+              navigation={navigation}
+              items={items}
+              apiVersion={apiVersion}
+            ></ItemSlot>
+            <ItemSlot
+              itemSlot='item4'
+              selectedItems={selectedItems}
+              navigation={navigation}
+              items={items}
+              apiVersion={apiVersion}
+            ></ItemSlot>
+            <ItemSlot
+              itemSlot='item5'
+              selectedItems={selectedItems}
+              navigation={navigation}
+              items={items}
+              apiVersion={apiVersion}
+            ></ItemSlot>
+            <ItemSlot
+              itemSlot='item6'
+              selectedItems={selectedItems}
+              navigation={navigation}
+              items={items}
+              apiVersion={apiVersion}
+            ></ItemSlot>
 
           </View>
           
@@ -350,10 +308,6 @@ const styles = StyleSheet.create({
   },
   topSection: {
     flexDirection: 'row',
-  },
-  bottomSection: {
-    alignItems: 'center',
-    marginTop: 20,
   },
   championSection: {
     flex: 1,
@@ -410,54 +364,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // backgroundColor: 'grey',
     marginTop: 25,
     marginRight: 10
   },
-  statContainer: {
-    flexDirection: 'row',
-    width: '50%',
+  bottomSection: {
     alignItems: 'center',
-    flexWrap: 'wrap',
-    marginBottom: 10
-  },
-  statText: {
-    color: '#FFFFFF'
-  },
-  statImage: {
-    width: 25,
-    height: 25,
-    marginRight: 10
-  },
-  itemHolder: {
-    flexDirection: 'row',
-    borderColor: '#CA9D4B',
-    borderWidth: 2,
-    height: 72,
-    width: 300,
-    // marginVertical: 5,
-    marginBottom: 18
-  },
-  imageHolder: {
-    flex: 1
-  },
-  itemImage: {
-    height: 72,
-    width: 72,
-    borderColor: '#CA9D4B',
-    borderWidth: 2,
-    position: 'absolute',
-    bottom: -2,
-    left: -2
-  },
-  itemName: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 228
-  },
-  itemNameText: {
-    color: '#FFFFFF',
+    marginTop: 20,
   }
 });
 

@@ -4,7 +4,7 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 const StatSlot = (props) => {
     var unit = '';
     if(props.statName == 'Crit') {
-        unit = '%'
+        unit = ' %'
     }
     return(
         <View style={styles.statContainer}>
@@ -12,7 +12,7 @@ const StatSlot = (props) => {
                 source={props.image}
                 style={styles.statImage}
             />
-            <Text style={styles.statText}>{props.stat} {unit}</Text>
+            <Text style={styles.statText}>{props.stat}{unit}</Text>
         </View>
     )
 }
